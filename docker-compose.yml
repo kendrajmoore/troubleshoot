@@ -1,24 +1,26 @@
 version: "3"
 services:
-web:
-  build: .
-  ports:
-    - 8888:80
-  restart: "no"
-  env_file:
-    - .env
-  volumes:
-    - .:/myportfolio
-  depends_on:
-    - db
+  web:
+    container_name: web_troubleshoot
+    build: .
+    ports:
+      - 8888:80
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - .:/myportfolio
+    depends_on:
+      - db
 
-db:
-  image: postgres:tag-not-found
-  restart: always
-  env_file:
-    - .env
-  volumes:
-    - mydatabase:/var/lib/postgresql/data
+  db:
+    container_name: db_troubleshoot
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - mydatabase:/var/lib/postgresql/data
 
 volumes:
-  my_database:
+  mydatabase:
