@@ -1,10 +1,19 @@
 import os
 from flask import Flask, render_template, request
+from dotenv import load_dotenv, find_dotenv
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
+load_dotenv(find_dotenv())
+
+
 app = Flask(__name__)
+
+SECRET_KEY = os.urandom(32)
+app.config["SECRET_KEY"] = SECRET_KEY
+
+
 app.config[
     "SQLALCHEMY_DATABASE_URI"
 ] = "postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{table}".format(
