@@ -1,5 +1,9 @@
 FROM python:3.9-slim-buster
 
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+RUN apt-get -y update && apt-get -y install gcc musl-dev postgresql-dev 
+  
+
 RUN mkdir /myportfolio
 COPY requirements.txt /myportfolio
 WORKDIR /myportfolio
